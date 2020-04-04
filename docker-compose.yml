@@ -7,11 +7,34 @@ services:
             context: ./server
         volumes:
             - ./server:/bookStore
+        environment:
+            DB_HOST: ${DB_HOST}
+            DB_PORT: ${DB_PORT}
+            DB_USER: ${DB_USER}
+            DB_PASSWORD: ${DB_PASSWORD}
+        depends_on: 
+            - mongo
         ports: 
             - "5000:5000"
     nginx:
         build:
             dockerfile: Dockerfile
             context: ./nginx
+        depends_on: 
+            - webhost
         ports:
             - "8080:80"
+
+    mongo:
+        image: mongo:latest
+        container_name: mongo
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: ${DB_USER}
+            MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD}
+        ports:
+            - 27017:27017
+        volumes:
+            - mongodb_data_container:/data/db
+
+volumes:
+  mongodb_data_container:

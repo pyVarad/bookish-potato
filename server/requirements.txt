@@ -1,3 +1,6 @@
 flask
 uwsgi
+flask_mongoengine
 flask-restful
+oauthlib
+Flask-Login
