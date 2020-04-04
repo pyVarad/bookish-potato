@@ -6,7 +6,7 @@ services:
             dockerfile: Dockerfile
             context: ./server
         volumes:
-            - "./server:/bookStore"
+            - ./server:/bookStore
         ports: 
             - "5000:5000"
     nginx:
