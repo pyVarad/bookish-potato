@@ -1,0 +1,17 @@
+version: '3.7'
+
+services: 
+    webhost:
+        build:
+            dockerfile: Dockerfile
+            context: ./server
+        volumes:
+            - "./server:/bookStore"
+        ports: 
+            - "5000:5000"
+    nginx:
+        build:
+            dockerfile: Dockerfile
+            context: ./nginx
+        ports:
+            - "8080:80"
