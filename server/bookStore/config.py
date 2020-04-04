@@ -1,0 +1,2 @@
+class BookStoreConfig:
+    pass
