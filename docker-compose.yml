@@ -12,6 +12,14 @@ services:
             DB_PORT: ${DB_PORT}
             DB_USER: ${DB_USER}
             DB_PASSWORD: ${DB_PASSWORD}
+            FIREBASE_APIKEY: ${FIREBASE_APIKEY}
+            FIREBASE_APP_DOMAIN: ${FIREBASE_APP_DOMAIN}
+            FIREBASE_DB_URL: ${FIREBASE_DB_URL}
+            FIREBASE_PROJECTID: ${FIREBASE_PROJECTID}
+            FIREBASE_STORAGE_BUCKET: ${FIREBASE_STORAGE_BUCKET}
+            FIREBASE_MSG_SENDER_ID: ${FIREBASE_MSG_SENDER_ID}
+            FIREBASE_APP_ID: ${FIREBASE_APP_ID}
+            FIREBASE_MEASUREMENT_ID: ${FIREBASE_MEASUREMENT_ID}
         depends_on: 
             - mongo
         ports: 

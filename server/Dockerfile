@@ -5,7 +5,9 @@ RUN set -e; \
 	apk add --no-cache --virtual .build-deps \
 		gcc \
 		libc-dev \
+		libffi-dev \
 		linux-headers \
+		openssl-dev \
 	; \
 	pip install -r requirements.txt; \
 	apk del .build-deps;
