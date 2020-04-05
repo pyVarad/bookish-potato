@@ -1,4 +1,3 @@
-import json
 import requests
 import flask
 from flask_jwt_extended import (
@@ -95,8 +94,9 @@ class SignInWithEmailAndPassword(Resource):
             print(e)
 
         access_token = create_access_token(identity=email)
-        # refresh_token = create_refresh_token(identity=email)
+        refresh_token = create_refresh_token(identity=email)
 
         return {
-            "accessToken": access_token
+            "accessToken": access_token,
+            "refreshToken": refresh_token
         }, 200

@@ -1,6 +1,7 @@
 import os
 import pyrebase
 
+
 class BookStoreConfig:
     MONGODB_SETTINGS = {
         'db': 'admin',
