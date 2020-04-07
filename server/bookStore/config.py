@@ -4,11 +4,12 @@ import pyrebase
 
 class BookStoreConfig:
     MONGODB_SETTINGS = {
-        'db': 'admin',
+        'authentication_source': 'admin',
         'host': os.getenv('DB_HOST', 'localhost'),
         'port': int(os.getenv('DB_PORT', 27017)),
         'username': os.getenv('DB_USER', ''),
         'password': os.getenv('DB_PASSWORD', ''),
+        'db': os.getenv('DB_WORKSPACE', 'test'),
         'connect': False
     }
     FIREBASE_CONFIG = {

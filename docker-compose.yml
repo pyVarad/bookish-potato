@@ -11,6 +11,7 @@ services:
             DB_HOST: ${DB_HOST}
             DB_PORT: ${DB_PORT}
             DB_USER: ${DB_USER}
+            DB_WORKSPACE: ${DB_WORKSPACE}
             DB_PASSWORD: ${DB_PASSWORD}
             FIREBASE_APIKEY: ${FIREBASE_APIKEY}
             FIREBASE_APP_DOMAIN: ${FIREBASE_APP_DOMAIN}
