@@ -1,49 +1,63 @@
-version: '3.7'
+version: "3.7"
 
-services: 
-    webhost:
-        build:
-            dockerfile: Dockerfile
-            context: ./server
-        volumes:
-            - ./server:/bookStore
-        environment:
-            DB_HOST: ${DB_HOST}
-            DB_PORT: ${DB_PORT}
-            DB_USER: ${DB_USER}
-            DB_WORKSPACE: ${DB_WORKSPACE}
-            DB_PASSWORD: ${DB_PASSWORD}
-            FIREBASE_APIKEY: ${FIREBASE_APIKEY}
-            FIREBASE_APP_DOMAIN: ${FIREBASE_APP_DOMAIN}
-            FIREBASE_DB_URL: ${FIREBASE_DB_URL}
-            FIREBASE_PROJECTID: ${FIREBASE_PROJECTID}
-            FIREBASE_STORAGE_BUCKET: ${FIREBASE_STORAGE_BUCKET}
-            FIREBASE_MSG_SENDER_ID: ${FIREBASE_MSG_SENDER_ID}
-            FIREBASE_APP_ID: ${FIREBASE_APP_ID}
-            FIREBASE_MEASUREMENT_ID: ${FIREBASE_MEASUREMENT_ID}
-        depends_on: 
-            - mongo
-        ports: 
-            - "5000:5000"
-    nginx:
-        build:
-            dockerfile: Dockerfile
-            context: ./nginx
-        depends_on: 
-            - webhost
-        ports:
-            - "8080:80"
+services:
+  webhost:
+    build:
+      dockerfile: Dockerfile
+      context: ./bookstore-server
+    volumes:
+      - ./bookstore-server:/bookStore
+    environment:
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_USER: ${DB_USER}
+      DB_WORKSPACE: ${DB_WORKSPACE}
+      DB_PASSWORD: ${DB_PASSWORD}
+      FIREBASE_APIKEY: ${FIREBASE_APIKEY}
+      FIREBASE_APP_DOMAIN: ${FIREBASE_APP_DOMAIN}
+      FIREBASE_DB_URL: ${FIREBASE_DB_URL}
+      FIREBASE_PROJECTID: ${FIREBASE_PROJECTID}
+      FIREBASE_STORAGE_BUCKET: ${FIREBASE_STORAGE_BUCKET}
+      FIREBASE_MSG_SENDER_ID: ${FIREBASE_MSG_SENDER_ID}
+      FIREBASE_APP_ID: ${FIREBASE_APP_ID}
+      FIREBASE_MEASUREMENT_ID: ${FIREBASE_MEASUREMENT_ID}
+    depends_on:
+      - mongo
+    ports:
+      - "5000:5000"
 
-    mongo:
-        image: mongo:latest
-        container_name: mongo
-        environment:
-            MONGO_INITDB_ROOT_USERNAME: ${DB_USER}
-            MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD}
-        ports:
-            - 27017:27017
-        volumes:
-            - mongodb_data_container:/data/db
+  nginx:
+    build:
+      dockerfile: Dockerfile
+      context: ./nginx
+    depends_on:
+      - webhost
+    ports:
+      - "8080:80"
+
+  client:
+    build:
+      dockerfile: Dockerfile
+      context: ./bookstore-client
+    volumes:
+      - ./bookstore-client/bookstore:/bookstore
+      - /bookstore/node_modules
+    stdin_open: true
+    depends_on:
+      - webhost
+    ports:
+      - "3000:3000"
+
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${DB_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb_data_container:/data/db
 
 volumes:
   mongodb_data_container:
