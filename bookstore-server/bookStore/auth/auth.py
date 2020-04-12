@@ -33,7 +33,6 @@ class SignUpWithEmailAndPassword(Resource):
         )
         super(SignInWithEmailAndPassword, self).__init__()
 
-
     def verifyEmailAddress(self, user):
         BookStoreConfig.auth.send_email_verification(user['idToken'])
         return "Please check your email to activate."
@@ -78,7 +77,6 @@ class SignInWithEmailAndPassword(Resource):
             'password', type=str, required=True, location='json'
         )
         super(SignInWithEmailAndPassword, self).__init__()
-
 
     def post(self):
         args = self.parser.parse_args()
